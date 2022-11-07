@@ -1,0 +1,42 @@
+.my-account-wrapper {
+  margin-top: 20px;
+  h2 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  .list {
+    list-style: none;
+    padding: 0;
+    font-size: 14px;
+    margin-right: 50px;
+    .item:not(:first-child) {
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    .item {
+      font-weight: 400;
+      padding: 15px 0;
+      color: #777;
+      :hover {
+        font-weight: bold;
+      }
+    }
+    .active {
+      font-weight: 700;
+      color: #222529;
+    }
+    .btn {
+      width: 100%;
+      text-align: left;
+    }
+  }
+  input {
+    font-size: 16px;
+    line-height: 2.5;
+    font-weight: 500;
+  }
+  .btn-update {
+    margin: 15px 0;
+    min-width: 150px;
+  }
+}
