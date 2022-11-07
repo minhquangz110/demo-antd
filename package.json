@@ -2,7 +2,7 @@
   "name": "demo-antd",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://gitname.github.io/react-gh-pages",
+  "homepage": "https://minhquangz110.github.io/demo-antd/",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@craco/craco": "^6.4.5",
