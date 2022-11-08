@@ -1,4 +1,4 @@
-import { Button, Col, Divider, Drawer, Row } from "antd";
+import { Badge, Button, Col, Divider, Drawer, Row } from "antd";
 import "./styles.less";
 import { Input, Space } from "antd";
 import {
@@ -93,6 +93,7 @@ export const Header2 = () => {
   const [open, setOpen] = useState(false);
 
   const profileContext = useContext(ProfileContext);
+  const cart = useAppSelector(state => state.cart)
   const showDrawer = () => {
     setOpen(true);
   };
@@ -118,7 +119,9 @@ export const Header2 = () => {
           <Link to="shoppingcart">Cart</Link>
           <Link to="myaccount">My Account</Link>
 
-          {profileContext && profileContext.value && profileContext.value.name ? (
+          {profileContext &&
+          profileContext.value &&
+          profileContext.value.name ? (
             <Link className="profile-name" to="myaccount">
               {profileContext.value.name}
               {console.log(profileContext)}
@@ -148,10 +151,12 @@ export const Header2 = () => {
               <HeartOutlined style={{ fontSize: 27 }} />
             </Link>
             <Link to="#">
-              <ShoppingCartOutlined
-                onClick={showDrawer}
-                style={{ fontSize: 27 }}
-              />
+              <Badge count={cart.length}>
+                <ShoppingCartOutlined
+                  onClick={showDrawer}
+                  style={{ fontSize: 27 }}
+                />
+              </Badge>
             </Link>
           </div>
         </div>

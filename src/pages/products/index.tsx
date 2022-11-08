@@ -1,5 +1,5 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Button, Col, Input, Modal, Rate, Row } from "antd";
+import { Button, Col, Input, message, Modal, Rate, Row } from "antd";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Slider from "react-slick";
@@ -45,7 +45,6 @@ export const Products = () => {
     }
   };
 
-
   useEffect(() => {
     setSlider({
       slider1: sliderRef.current,
@@ -57,6 +56,7 @@ export const Products = () => {
     if (data.price) {
       const subtotal = data.price * quantity;
       dispatch(addToCart({ ...data, quantity: quantity, subtotal: subtotal }));
+      message.success("success");
     }
   };
   const productGallerySettings = {
@@ -165,7 +165,6 @@ export const Products = () => {
             </div>
           </Col>
         </Row>
-       
       </div>
     </div>
   );
