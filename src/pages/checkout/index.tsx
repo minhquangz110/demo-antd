@@ -3,10 +3,10 @@ import { ColumnsType } from "antd/lib/table";
 import { useForm } from "rc-field-form";
 import { useEffect, useMemo, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { CheckoutProgressBar } from "../../components/checkoutProgressBar";
-import { ICartItem } from "../../features/cart/cartSlice";
+import { clearCart, ICartItem } from "../../features/cart/cartSlice";
 import { getProfile } from "../../persist/localstorage";
 import { orderService } from "../../services/orderService";
 import { formatDollar } from "../../utils/formatCurrency";
@@ -39,6 +39,9 @@ const Footertable = (props: any) => {
 export const Checkout = () => {
   const [form] = Form.useForm();
   const cart = useAppSelector((state) => state.cart);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     const profile = getProfile();
 
@@ -46,10 +49,15 @@ export const Checkout = () => {
   }, [form]);
   const [modal2Open, setModal2Open] = useState(false);
   const onFinish = async (value: any) => {
-
-    const res = await orderService.createOrder(value, cart);
-    if (res.success) {
-      setModal2Open(true);
+    if (!loading) {
+      setLoading(true);
+      const res = await orderService.createOrder(value, cart);
+      console.log(res);
+      if (res.success) {
+        setModal2Open(true);
+        dispatch(clearCart({}));
+      }
+      setLoading(false);
     }
   };
   const columns: ColumnsType<ICartItem> = useMemo(() => {
@@ -124,12 +132,38 @@ export const Checkout = () => {
           </Row>
         </Form>
         <Modal
-          title="Vertically centered modal dialog"
+          title={<h2 className="text-center"> Success </h2>}
           centered
           open={modal2Open}
           onOk={() => setModal2Open(false)}
           onCancel={() => setModal2Open(false)}
-        ></Modal>
+          okButtonProps={{ hidden: true }}
+          cancelButtonProps={{ hidden: true }}
+        >
+          <Result
+            status="success"
+            title="Successfully Purchased s"
+            extra={[
+              <Button
+                type="primary"
+                onClick={() => {
+                  navigate("/main");
+                }}
+                key="console"
+              >
+                Home
+              </Button>,
+              <Button
+                key="buy"
+                onClick={() => {
+                  navigate("/main/myaccount");
+                }}
+              >
+                Close
+              </Button>,
+            ]}
+          />
+        </Modal>
       </div>
     </div>
   );

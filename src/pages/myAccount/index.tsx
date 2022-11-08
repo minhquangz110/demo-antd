@@ -20,7 +20,6 @@ const AccountDetails = () => {
   const profileContext = useContext(ProfileContext);
   const onFinish = async (value: any) => {
     const res = await accountService.update(value);
-    profileContext.updateProfile(value);
     if (res.success) {
       message.success({ content: "Success" });
       console.log(res);

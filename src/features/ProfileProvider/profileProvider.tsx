@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useState } from "react";
+import { createContext, PropsWithChildren, useEffect, useState } from "react";
 
 import { getProfile, setProfile } from "../../persist/localstorage";
 
@@ -8,8 +8,11 @@ export const ProfileProvider = (props: PropsWithChildren) => {
 
   const updatProfile = (value: any) => {
     setProfile(value);
-    setState({...value});
+    setState({ ...value });
   };
+  useEffect(() => {
+    setState({ ...getProfile() });
+  }, []);
   const value = {
     value: state,
     updatProfile: updatProfile,

@@ -24,7 +24,7 @@ export class orderService {
     }
   ): Promise<DataList<OrdersData[]>> {
     const req = { ...page, username: username };
-    const result = await request.get("orders", req);
+    const result = await request.get("orders/user", req);
     return result;
   }
   static async del(id: string): Promise<IDataApi<string>> {
@@ -43,7 +43,11 @@ export class orderService {
     //   order.imgs = pathsRes.data;
     // }
     const req = { ...order, orderDetails: orderDetails };
-    return await request.post("orders", req);
+
+    const res = await request.post("orders", req);
+    console.log(res);
+    
+    return res
   }
   static async editOrder(
     order: IOrderDetails

@@ -10,7 +10,7 @@ export const SignUp = () => {
 
     if (res.success) {
       message.success({ content: "Success" });
-      //  navigate("/main");
+      navigate("/main");
     } else {
       message.error({ content: res.message });
     }
