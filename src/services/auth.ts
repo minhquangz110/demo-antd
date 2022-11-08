@@ -32,6 +32,18 @@ export class AuthService {
     }
     return res;
   }
+
+  static async registerByAdmin(
+    account: IAccount | AccountDetails
+  ): Promise<IDataApi<AccountDetails>> {
+    const res = await request.post("auth/admin/register", account);
+    if (res.success) {
+      const { username, password } = res.data;
+
+      this.login({ username, password });
+    }
+    return res;
+  }
   static async editAccount(
     account: AccountDetails
   ): Promise<IDataApi<AccountDetails>> {

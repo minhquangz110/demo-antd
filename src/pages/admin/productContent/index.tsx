@@ -20,6 +20,7 @@ import Logo from "../../../assets/images/avatar.jpg";
 import { ModalProduct } from "../../../components/modalProduct";
 import { IProduct } from "../../../models/product";
 import { productService } from "../../../services/products";
+import { formatDollar } from "../../../utils/formatCurrency";
 import "./styles.less";
 const delHandle = async (id: string) => {
   const result = await productService.del(id);
@@ -109,14 +110,14 @@ export const ProductContent = () => {
         key: "_id",
 
         dataIndex: "oldPrice",
-        render: (text) => <p className=" ">{text}</p>,
+        render: (text) => <p className=" ">{formatDollar(text)}</p>,
       },
       {
         title: <p className="  header-table">Price</p>,
         key: "_id",
 
         dataIndex: "price",
-        render: (text) => <p className="">{text}</p>,
+        render: (text) => <p className="">{formatDollar(text)}</p>,
       },
 
       {

@@ -43,7 +43,6 @@ export const AccountContent = () => {
 
   const fetch = useCallback(async () => {
     const result = await accountService.getAccounts(page);
-    const res = await AuthService.getProfile();
     if (result.success) {
       setData(result.data.data);
       setTotal(result.data.count);

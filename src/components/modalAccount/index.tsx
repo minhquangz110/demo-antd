@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Form, Input, message, Modal, Upload } from "antd";
+import { Form, Input, message, Modal, Select, Upload } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { useEffect, useRef } from "react";
 
@@ -26,7 +26,7 @@ export const ModalAccount = (props: {
 
   const onFinish = async (account: AccountDetails) => {
     if (type === "add") {
-      const res = await AuthService.registerAccount(account);
+      const res = await AuthService.registerByAdmin(account);
       if (res.success) {
         message.success("Success");
       }
@@ -95,6 +95,21 @@ export const ModalAccount = (props: {
         </Form.Item>
         <Form.Item label="Phone" name="phone">
           <Input />
+        </Form.Item>
+        <Form.Item label="Author" initialValue="user" name="author">
+          <Select
+            style={{ width: 120 }}
+            options={[
+              {
+                value: "admin",
+                label: "Admin",
+              },
+              {
+                value: "user",
+                label: "User",
+              },
+            ]}
+          />
         </Form.Item>
         <Form.Item label="Address" name="address">
           <TextArea rows={4} placeholder="Description" />
