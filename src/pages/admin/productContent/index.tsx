@@ -49,6 +49,7 @@ export const ProductContent = () => {
     if (result.success) {
       setData(result.data.data);
       setTotal(result.data.count);
+      console.log('he')
     }
   }, [page]);
 
@@ -165,7 +166,7 @@ export const ProductContent = () => {
     <Row className="product-content-wrapper" gutter={[0, 14]}>
       <h2 className="title">Products</h2>
       <Col span={24} className="flex-end">
-        <ModalProduct {...openParams} {...modalProductParams} />
+        <ModalProduct {...openParams} {...modalProductParams} fetch={fetch} />
         <Space size={30}>
           <Search
             placeholder="input search text"

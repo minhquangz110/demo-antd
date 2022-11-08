@@ -57,7 +57,7 @@ export const Products = () => {
       const subtotal = data.price * quantity;
       dispatch(addToCart({ ...data, quantity: quantity, subtotal: subtotal }));
       message.success("success");
-      fetch()
+  
     }
   };
   const productGallerySettings = {

@@ -18,8 +18,9 @@ export const ModalProduct = (props: {
   setModalOpen: any;
   type: string;
   data?: IProduct;
+  fetch: any;
 }) => {
-  const { open = false, setModalOpen, type = "add", data } = props;
+  const { open = false, setModalOpen, type = "add", data, fetch } = props;
   const formRef = useRef<any>(null);
   const uploadRef = useRef<any>(null);
 
@@ -33,14 +34,17 @@ export const ModalProduct = (props: {
     if (type === "add") {
       const res = await productService.createProduct(product);
       if (res.success) {
-        message.success("Success");
       }
+      message.success("Success");
+      fetch();
     }
     if (type === "edit") {
       const res = await productService.editProduct(product, product.imgs);
+      console.log(res);
       if (res.success) {
-        message.success("Success");
       }
+      message.success("Success");
+      fetch();
     }
     setModalOpen(false);
   };

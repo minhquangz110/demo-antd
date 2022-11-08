@@ -1,5 +1,7 @@
 import { Form, Input, Button, Checkbox, message, Row, Col } from "antd";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ProfileContext } from "../../features/ProfileProvider/profileProvider";
 import { getProfile } from "../../persist/localstorage";
 import { accountService } from "../../services/accounts";
 import { AuthService } from "../../services/auth";
@@ -7,13 +9,13 @@ import { AuthService } from "../../services/auth";
 export const SignIn = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  const context = useContext(ProfileContext)
   const onFinish = async (value: any) => {
     const res = await AuthService.login(value);
 
     if (res.success) {
       message.success({ content: "Success" });
-      console.log('heo')
-      console.log(getProfile().author);
+      context.updatProfile(getProfile())
 
       if (getProfile().author === "admin") {
         navigate("/admin");
