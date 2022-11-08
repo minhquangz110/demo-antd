@@ -118,7 +118,7 @@ export const Header2 = () => {
           <Link to="shoppingcart">Cart</Link>
           <Link to="myaccount">My Account</Link>
 
-          {profileContext && profileContext.value ? (
+          {profileContext && profileContext.value && profileContext.value.name ? (
             <Link className="profile-name" to="myaccount">
               {profileContext.value.name}
               {console.log(profileContext)}

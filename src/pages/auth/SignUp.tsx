@@ -9,7 +9,7 @@ export const SignUp = () => {
     const res = await AuthService.registerAccount(value);
 
     if (res.success) {
-      message.success({ content: "Success" });
+      if (res.data) message.success({ content: "Success" });
       navigate("/main");
     } else {
       message.error({ content: res.message });

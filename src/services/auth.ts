@@ -10,9 +10,9 @@ export class AuthService {
   static async login(user: {
     username: string;
     password: string;
-  }): Promise<IDataApi<string>> {
+  }): Promise<IDataApi<AccountDetails>> {
     const res = await request.post("auth/login", user);
-
+    console.log(res);
     if (res.success) {
       setToken(res.data);
       const profile = jwtDecode(res.data) as any;

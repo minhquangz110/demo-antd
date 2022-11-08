@@ -17,7 +17,7 @@ export const ModalAccount = (props: {
 }) => {
   const { open = false, setModalOpen, type = "add", data } = props;
   const formRef = useRef<any>(null);
-
+    
   const onSubmit = async () => {
     formRef.current.submit();
   };

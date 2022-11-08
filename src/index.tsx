@@ -24,6 +24,7 @@ import { OrderContent } from "./pages/admin/orderContent";
 import { AuthGuard } from "./guards/auth";
 import { getProfile } from "./persist/localstorage";
 import { ProfileProvider } from "./features/ProfileProvider/profileProvider";
+import { AuthAdminGuard } from "./guards/authAdmin";
 const router = createBrowserRouter([
   {
     path: "/auth",
@@ -76,7 +77,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Admin />,
+    element: (
+      <AuthAdminGuard>
+        <Admin />
+      </AuthAdminGuard>
+    ),
     children: [
       {
         path: "products",
@@ -92,7 +97,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-]); 
+]);
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);

@@ -1,5 +1,6 @@
 import { Form, Input, Button, Checkbox, message, Row, Col } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import { getProfile } from "../../persist/localstorage";
 import { accountService } from "../../services/accounts";
 import { AuthService } from "../../services/auth";
 
@@ -8,11 +9,17 @@ export const SignIn = () => {
   const [form] = Form.useForm();
   const onFinish = async (value: any) => {
     const res = await AuthService.login(value);
-   
 
     if (res.success) {
       message.success({ content: "Success" });
-      navigate("/main");
+      console.log('heo')
+      console.log(getProfile().author);
+
+      if (getProfile().author === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/main");
+      }
     } else {
       message.error({ content: res.message });
     }
