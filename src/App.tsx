@@ -24,7 +24,7 @@ function App() {
       }
      
     }
-  },[isLoading, navigate, profile])
+  },[isLoading, profile])
 
   return isLoading ? <>loading...</> : <Outlet />;
 }
