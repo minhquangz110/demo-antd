@@ -36,6 +36,12 @@ export class accountService {
 
     return res;
   }
+
+  static async getProfile() {
+    const res = await request.get("auth/profile", {});
+    console.log(res);
+  }
+
   static async update(
     account: AccountDetails
   ): Promise<IDataApi<AccountDetails>> {

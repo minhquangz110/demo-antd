@@ -1,5 +1,6 @@
 import { PropsWithChildren, useEffect, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../app/hooks";
 import { getProfile, getToken } from "../persist/localstorage";
 
 interface IAuthGuardProps {}
@@ -8,11 +9,10 @@ export const AuthAdminGuard = (props: PropsWithChildren<IAuthGuardProps>) => {
   const [isAuth, setIsAuth] = useState(false);
   const navigate = useNavigate();
   const { children } = props;
-
+  const profile = useAppSelector((state) => state.auth.userProfile);
   useEffect(() => {
-    const token = getToken();
-    if (token) {
-      if ((getProfile().author === "admin")) {
+    if (profile) {
+      if (profile.author === "admin") {
         setIsAuth(true);
       } else {
         navigate("/main");
@@ -20,7 +20,7 @@ export const AuthAdminGuard = (props: PropsWithChildren<IAuthGuardProps>) => {
     } else {
       navigate("/auth/login");
     }
-  }, [navigate]);
+  }, [navigate, profile]);
 
   return isAuth ? <>{children}</> : <></>;
 };

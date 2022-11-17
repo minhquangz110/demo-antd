@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../../app/store";
-import { getToken } from "../../persist/localstorage";
-import { UserProfileService } from "../../services/userProfile";
+import { IAccount } from "../../models/account";
+import { getToken, removeToken } from "../../persist/localstorage";
+import { AuthService } from "../../services/auth";
 
 export const authenticate = createAsyncThunk(
   "auth/authenticate",
   async (_, thunkApi) => {
-    return true;
     const token = getToken();
+
     if (token) {
       const isInitialApp = await thunkApi.dispatch(initialApp());
       if (isInitialApp) {
@@ -21,8 +21,8 @@ export const authenticate = createAsyncThunk(
 
 const initialApp = createAsyncThunk("auth/initialApp", async (_, thunkApi) => {
   try {
-    const userProfile = await UserProfileService.getUserProfile();
-
+    const userProfile = await AuthService.getProfile();
+    console.log(userProfile);
     thunkApi.dispatch(updateProfile(userProfile));
     return true;
   } catch (e) {
@@ -30,15 +30,13 @@ const initialApp = createAsyncThunk("auth/initialApp", async (_, thunkApi) => {
   }
 });
 
-export interface IUserProfile {
-  name: string;
-}
+export type IProfile = Omit<IAccount, "password">;
 
 export interface IInitialState {
   loading: boolean;
   isAuthenticate: boolean;
   isInitialApp: boolean;
-  userProfile?: IUserProfile;
+  userProfile?: IProfile;
 }
 
 const initialState: IInitialState = {
@@ -56,6 +54,10 @@ export const authSlice = createSlice({
     updateProfile: (state, action) => {
       state.userProfile = action.payload;
     },
+    logout: (state) => {
+      state.userProfile = undefined;
+      removeToken();
+    },
   },
 
   extraReducers: (builder) => {
@@ -65,6 +67,6 @@ export const authSlice = createSlice({
     });
   },
 });
-export const { updateProfile } = authSlice.actions;
+export const { updateProfile, logout } = authSlice.actions;
 
 export default authSlice.reducer;

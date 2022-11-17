@@ -12,11 +12,8 @@ export class AuthService {
     password: string;
   }): Promise<IDataApi<AccountDetails>> {
     const res = await request.post("auth/login", user);
-    console.log(res);
     if (res.success) {
       setToken(res.data);
-      const profile = jwtDecode(res.data) as any;
-      setProfile(profile?.payload);
     }
 
     return res;
@@ -51,6 +48,6 @@ export class AuthService {
   }
   static async getProfile() {
     const res = await request.get("auth/profile", {});
-    console.log(res);
+    return res.data;
   }
 }

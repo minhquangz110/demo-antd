@@ -1,34 +1,36 @@
 import { Form, Input, Button, Checkbox, message, Row, Col } from "antd";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ProfileContext } from "../../features/ProfileProvider/profileProvider";
-import { getProfile } from "../../persist/localstorage";
-import { accountService } from "../../services/accounts";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { authenticate } from "../../features/auth/authSlice";
 import { AuthService } from "../../services/auth";
 
 export const SignIn = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [form] = Form.useForm();
-  const context = useContext(ProfileContext)
+  const profile = useAppSelector((state) => state.auth.userProfile);
   const onFinish = async (value: any) => {
     const res = await AuthService.login(value);
 
     if (res.success) {
       message.success({ content: "Success" });
-      context.updatProfile(getProfile())
-
-      if (getProfile().author === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/main");
-      }
+      await dispatch(authenticate());
     } else {
       message.error({ content: res.message });
     }
   };
+  useEffect(() => {
+    if (profile) {
+      if (profile.author === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/main");
+      }
+    }
+  }, [navigate, profile]);
   return (
     <>
-      {" "}
       <Form
         form={form}
         labelCol={{ span: 24 }}

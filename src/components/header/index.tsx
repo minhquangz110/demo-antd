@@ -12,7 +12,6 @@ import { useAppSelector } from "../../app/hooks";
 import { CartItemImage } from "../cartItemImage";
 import { formatDollar } from "../../utils/formatCurrency";
 
-import { ProfileContext } from "../../features/ProfileProvider/profileProvider";
 const { Search } = Input;
 
 const DrawerContent = memo((props: any) => {
@@ -20,7 +19,6 @@ const DrawerContent = memo((props: any) => {
   const { handleClose } = props;
   const products = useAppSelector((state) => state.cart);
   let total = 0;
-  console.log(products);
   products.forEach((p: { subtotal: number }) => {
     total += p.subtotal;
   });
@@ -91,9 +89,8 @@ const DrawerContent = memo((props: any) => {
 export const Header2 = () => {
   const onSearch = () => {};
   const [open, setOpen] = useState(false);
-
-  const profileContext = useContext(ProfileContext);
-  const cart = useAppSelector(state => state.cart)
+  const profile = useAppSelector((state) => state.auth.userProfile);
+  const cart = useAppSelector((state) => state.cart);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -119,12 +116,9 @@ export const Header2 = () => {
           <Link to="shoppingcart">Cart</Link>
           <Link to="myaccount">My Account</Link>
 
-          {profileContext &&
-          profileContext.value &&
-          profileContext.value.name ? (
+          {profile && profile.name ? (
             <Link className="profile-name" to="myaccount">
-              {profileContext.value.name}
-              {console.log(profileContext)}
+              {profile.name}
             </Link>
           ) : (
             <Link to="/auth/login">Login</Link>
@@ -144,7 +138,7 @@ export const Header2 = () => {
             onSearch={onSearch}
           />
           <div className="header-right">
-            <Link to="">
+            <Link to="myaccount">
               <UserOutlined style={{ fontSize: 27 }} />
             </Link>
             <Link to="">

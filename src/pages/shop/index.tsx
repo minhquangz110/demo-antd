@@ -1,11 +1,14 @@
 import { Col, Divider, Pagination, Row, Select, Space } from "antd";
 import { Option } from "antd/lib/mentions";
 import { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Product } from "../../components/product";
 import { IProduct } from "../../models/product";
 import { productService } from "../../services/products";
 import "./styles.less";
 export const Shop = () => {
+  const params = useParams();;
+  console.log(params)
   const handleChange = (value: any) => {
   
   };

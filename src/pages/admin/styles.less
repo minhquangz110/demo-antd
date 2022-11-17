@@ -1,5 +1,5 @@
 @import "../../styles/common.less";
- .admin-wrapper {
+.admin-wrapper {
   .logo {
     height: 32px;
     margin: 16px;
@@ -98,5 +98,17 @@
       100%{opacity: 1;}
     });
     .animation(fade-in 0.5s linear );
+  }
+  .profile-menu {
+    list-style: none;
+    padding-left: 12px;
+    li {
+      padding: 7px 0px;
+      cursor: pointer;
+    }
+    li:hover{
+      font-weight: 600;
+      border-bottom: 0.1px solid ;
+    }
   }
 }

@@ -1,11 +1,22 @@
-import { Button, Rate } from "antd";
+import { Button, message, Rate } from "antd";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
 import { IProduct } from "../../models/product";
 import { formatDollar } from "../../utils/formatCurrency";
+import { addToCart } from "../../features/cart/cartSlice";
 import "./styles.less";
 
 export const Product = (props: IProduct) => {
   const { _id, name, price, oldPrice, imgs } = props;
+  const dispatch = useAppDispatch();
+
+  const addToCartHandle = () => {
+    if (price) {
+      const subtotal = price * 1;
+      dispatch(addToCart({ ...props, quantity: 1, subtotal: subtotal }));
+      message.success("success");
+    }
+  };
   return (
     <div className="product-wrapper w-full">
       <div className="label-group">
@@ -28,7 +39,11 @@ export const Product = (props: IProduct) => {
           <span className="price">${formatDollar(price)}</span>
         </div>
         <div className="product-action">
-          <Button className="btn-add-to-cart uppercase" type="default">
+          <Button
+            className="btn-add-to-cart uppercase"
+            onClick={addToCartHandle}
+            type="default"
+          >
             Add to cart
           </Button>
         </div>

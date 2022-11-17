@@ -12,6 +12,8 @@ import CollapsePanel from "antd/lib/collapse/CollapsePanel";
 import { Outlet, useNavigate } from "react-router-dom";
 import Logo2 from "../../assets/images/avatar.jpg";
 import { useEffect, useState } from "react";
+import { useAppDispatch } from "../../app/hooks";
+import { logout } from "../../features/auth/authSlice";
 
 const { Header, Sider, Content } = Layout;
 
@@ -20,7 +22,7 @@ export const Admin = () => {
   const onChange = (value: any) => {
     navigate(value.key);
   };
-
+  const dispatch = useAppDispatch();
   return (
     <Layout className="admin-wrapper">
       <Sider className="slider-left" trigger={null}>
@@ -30,11 +32,7 @@ export const Admin = () => {
             alt=""
           />
         </div>
-        <Collapse
-          defaultActiveKey={["1"]}
-          onChange={onChange}
-          expandIconPosition="end"
-        >
+        <Collapse defaultActiveKey={["1"]} expandIconPosition="end">
           <CollapsePanel
             header={
               <div className="user">
@@ -53,25 +51,22 @@ export const Admin = () => {
             }
             key="1"
           >
-            <Menu
-              mode="vertical"
-              defaultSelectedKeys={["1"]}
-              items={[
-                {
-                  key: "1",
-                  label: "My Profile",
-                },
-                {
-                  key: "2",
-                  label: "Edit Profile",
-                },
-              ]}
-            />
+            <ul className="profile-menu">
+              <li> My Profile</li>
+              <li>Edit Profile</li>
+              <li
+                onClick={() => {
+                  dispatch(logout());
+                }}
+              >
+                Log out
+              </li>
+            </ul>
           </CollapsePanel>
         </Collapse>
         <Menu
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={["accounts"]}
           onSelect={(value) => {
             onChange(value);
           }}

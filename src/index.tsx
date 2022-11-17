@@ -27,73 +27,73 @@ import { ProfileProvider } from "./features/ProfileProvider/profileProvider";
 import { AuthAdminGuard } from "./guards/authAdmin";
 const router = createBrowserRouter([
   {
-    path: "/auth",
-    element: <Auth />,
-    children: [
-      {
-        path: "/auth/login",
-        element: <SignIn />,
-      },
-      {
-        path: "/auth/signup",
-        element: <SignUp />,
-      },
-    ],
-  },
-
-  {
     path: "/",
     element: <App />,
-    children: [{}],
-  },
-  {
-    path: "main",
-    element: <Main />,
     children: [
       {
-        path: "products/:id",
-        element: <Products />,
+        path: "/auth",
+        element: <Auth />,
+        children: [
+          {
+            path: "/auth/login",
+            element: <SignIn />,
+          },
+          {
+            path: "/auth/signup",
+            element: <SignUp />,
+          },
+        ],
       },
       {
-        path: "home",
-        element: <Home />,
+        path: "main",
+        element: <Main />,
+        children: [
+          {
+            path: "products/:id",
+            element: <Products />,
+          },
+          {
+            path: "home",
+            element: <Home />,
+          },
+          {
+            path: "checkout",
+            element: (
+              <AuthGuard>
+                <Checkout />
+              </AuthGuard>
+            ),
+          },
+          { path: "shop", element: <Shop /> },
+          { path: "shoppingcart", element: <Shoppingcart /> },
+          { path: "myaccount", element: <MyAccount /> },
+          {
+            path: "",
+            element: <Home />,
+          },
+        ],
       },
       {
-        path: "checkout",
+        path: "/admin",
         element: (
-          <AuthGuard>
-            <Checkout />
-          </AuthGuard>
+          <AuthAdminGuard>
+            <Admin />
+          </AuthAdminGuard>
         ),
-      },
-      { path: "shop", element: <Shop /> },
-      { path: "shoppingcart", element: <Shoppingcart /> },
-      { path: "myaccount", element: <MyAccount /> },
-      {
-        path: "",
-        element: <Home />,
-      },
-    ],
-  },
-  {
-    path: "/admin",
-    element: (
-      <AuthAdminGuard>
-        <Admin />
-      </AuthAdminGuard>
-    ),
-    children: [
-      {
-        path: "products",
-        element: <ProductContent />,
-      },
-      {
-        path: "accounts",
-        element: <AccountContent />,
-      },
-      {
-        path: "orders",
-        element: <OrderContent />,
+        children: [
+          {
+            path: "products",
+            element: <ProductContent />,
+          },
+          {
+            path: "accounts",
+            element: <AccountContent />,
+          },
+          {
+            path: "orders",
+            element: <OrderContent />,
+          },
+        ],
       },
     ],
   },

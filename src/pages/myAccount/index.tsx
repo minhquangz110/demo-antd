@@ -9,15 +9,16 @@ import {
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 import { OrderList } from "../../components/orderList";
-import { ProfileContext } from "../../features/ProfileProvider/profileProvider";
-import { getProfile, removeToken } from "../../persist/localstorage";
+import { logout, updateProfile } from "../../features/auth/authSlice";
+import { removeToken } from "../../persist/localstorage";
 import { accountService } from "../../services/accounts";
 import "./styles.less";
 const AccountDetails = () => {
   const [form] = useForm();
-  const profileContext = useContext(ProfileContext);
+  const profile = useAppSelector((state) => state.auth.userProfile);
   const onFinish = async (value: any) => {
     const res = await accountService.update(value);
     if (res.success) {
@@ -30,7 +31,7 @@ const AccountDetails = () => {
   };
 
   useLayoutEffect(() => {
-    form.setFieldsValue(profileContext.value);
+    form.setFieldsValue(profile);
   });
   return (
     <Form layout="vertical" form={form} onFinish={onFinish}>
@@ -82,12 +83,14 @@ class ITabContent {
   myAccount: ReactNode;
   orders: ReactNode;
 }
+const tabContent = {
+  myAccount: <AccountDetails />,
+  orders: <OrderList />,
+};
+
 export const MyAccount = () => {
   const [tabName, setTabName] = useState<keyof ITabContent>("myAccount");
-  const tabContent = {
-    myAccount: <AccountDetails />,
-    orders: <OrderList />,
-  };
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const onChange = (value: any) => {
     setTabName(value);
@@ -127,7 +130,7 @@ export const MyAccount = () => {
                 <Button
                   value="myAccount"
                   onClick={() => {
-                    removeToken();
+                    dispatch(logout());
                     navigate("/auth/login");
                   }}
                   type="text"
