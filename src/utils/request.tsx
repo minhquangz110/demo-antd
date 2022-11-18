@@ -3,7 +3,7 @@ import { getToken } from "../persist/localstorage";
 import { IDataApi } from "../types/dataApi";
 
 const request = axios.create({
-  baseURL: "https://demo-nestjs-z.herokuapp.com/api",
+  baseURL: "https://demo-be.onrender.com/api",
  // baseURL: "http://localhost:3001/api",
 });
 request.interceptors.request.use(

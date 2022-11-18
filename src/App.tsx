@@ -3,7 +3,6 @@ import "./App.less";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { authenticate } from "./features/auth/authSlice";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 function App() {
   const dispatch = useAppDispatch();
