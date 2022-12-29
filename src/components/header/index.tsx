@@ -2,6 +2,8 @@ import { Badge, Button, Col, Divider, Drawer, Row } from "antd";
 import "./styles.less";
 import { Input, Space } from "antd";
 import {
+  AppstoreOutlined,
+  BarsOutlined,
   HeartOutlined,
   ShoppingCartOutlined,
   UserOutlined,
@@ -109,8 +111,8 @@ export const Header2 = () => {
       >
         <DrawerContent handleClose={onClose} />
       </Drawer>
-      <div className="header-top">
-        <div className="container flex-center">
+      <div className="container">
+        <div className=" header-top flex-center">
           <Link to="">About Us</Link>
           <Link to="">My Whitelist</Link>
           <Link to="shoppingcart">Cart</Link>
@@ -124,10 +126,10 @@ export const Header2 = () => {
             <Link to="/auth/login">Login</Link>
           )}
         </div>
-      </div>
-      <div className="header-middle">
-        <div className="container flex-center">
+        <div className="header-middle">
           <div className="header-logo">
+        
+            <BarsOutlined className="bars-icon" />
             <img src="/images/logo.png" alt="" />
           </div>
           <Search
@@ -138,25 +140,25 @@ export const Header2 = () => {
             onSearch={onSearch}
           />
           <div className="header-right">
-            <Link to="myaccount">
-              <UserOutlined style={{ fontSize: 27 }} />
-            </Link>
-            <Link to="">
-              <HeartOutlined style={{ fontSize: 27 }} />
-            </Link>
-            <Link to="#">
-              <Badge count={cart.length}>
-                <ShoppingCartOutlined
-                  onClick={showDrawer}
-                  style={{ fontSize: 27 }}
-                />
-              </Badge>
-            </Link>
+            <Space size={4}>
+              <Link to="myaccount">
+                <UserOutlined style={{ fontSize: 32 }} />
+              </Link>
+              <Link to="">
+                <HeartOutlined style={{ fontSize: 32 }} />
+              </Link>
+              <Link to="#">
+                <Badge count={cart.length}>
+                  <ShoppingCartOutlined
+                    onClick={showDrawer}
+                    style={{ fontSize: 32 }}
+                  />
+                </Badge>
+              </Link>
+            </Space>
           </div>
         </div>
-      </div>
-      <div className="header-bottom">
-        <div className="container h-full">
+        <div className="header-bottom">
           <div className="header-bottom-left h-full">
             <Link to="">Home</Link>
             <Link to="shop">Shop</Link>

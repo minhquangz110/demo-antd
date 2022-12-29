@@ -1,12 +1,12 @@
 import Slider from "react-slick";
-import { IProduct } from "../../models/product";
-import { Product } from "../product";
+import { ICategory } from "../../models/category";
+
 import "./styles.less";
-export const ProductSlider = (props: {
-  products: IProduct[];
+export const CategoriesSlider = (props: {
+  categories: ICategory[];
   slidesToShow: number;
 }) => {
-  const { products, slidesToShow } = props;
+  const { categories, slidesToShow } = props;
   const settings = {
     dots: false,
     infinite: true,
@@ -14,40 +14,45 @@ export const ProductSlider = (props: {
     speed: 500,
     slidesToShow: slidesToShow,
     slidesToScroll: 1,
-    initialSlide: 0,
     nextArrow: <></>,
     prevArrow: <></>,
     responsive: [
       {
         breakpoint: 992,
         settings: {
-          slidesToShow:3,
-         
+          slidesToShow: 3,
         },
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 3,
-         
         },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
-         
         },
       },
-     
     ],
   };
 
   return (
     <Slider {...settings}>
-      {products.map((p: IProduct, index) => (
+      {categories.map((p: ICategory, index) => (
         <div key={index} className="slider-item-padding">
-          <Product key={index} {...p} />
+          <div className="category-item">
+            <img
+              src="https://www.portotheme.com/magento2/porto/pub/media/wysiwyg/smartwave/porto/homepage/04/shop4_cat1.jpg"
+              alt=""
+            />
+            <div className="thumb"></div>
+            <div className="category-title">
+              <h2>Name</h2>
+              <span>3 Products </span>
+            </div>
+          </div>
         </div>
       ))}
     </Slider>

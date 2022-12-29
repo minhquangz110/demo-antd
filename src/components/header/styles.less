@@ -6,43 +6,73 @@
   a {
     color: #555;
   }
-  .profile-name{
+  .profile-name {
     font-size: 14px !important;
   }
+
+  @media only screen and (max-width: 500px) {
+    .header-top {
+      display: none !important;
+    }
+    .header-middle {
+      padding: 18px 0 !important;
+      .header-logo {
+        padding-right: 32px;
+        display: flex;
+        align-items: center;
+        img {
+          height: 32px;
+        }
+        .bars-icon {
+          display: block !important;
+        
+        }
+      }
+    }
+    .header-bottom {
+      display: none !important;
+    }
+    .search-input {
+      display: none !important;
+    }
+  }
+
   .header-top {
     height: 42px;
     display: flex;
-    align-items: center;
     border-bottom: 1px solid #e7e7e7;
-    .container {
-      display: flex;
-      justify-content: flex-end;
-      a {
-        font-family: "Roboto";
-        color: #777;
-        padding: 0px 11px;
-        font-weight: bold;
-        line-height: 30px;
-        font-size: 12px;
-      }
-      a:hover {
-        opacity: 0.8;
-      }
+    justify-content: flex-end;
+    width: 100%;
+    a {
+      font-family: "Roboto";
+      color: #777;
+      padding: 0px 11px;
+      font-weight: bold;
+      line-height: 30px;
+      font-size: 12px;
+    }
+    a:hover {
+      opacity: 0.8;
     }
   }
   .header-middle {
-    height: 100px;
+    padding: 32px 0;
     display: flex;
     align-items: center;
     background-color: white;
+    justify-content: space-between;
     .header-logo {
-      width: 200px;
-      padding: 0 30px;
+      padding-right: 32px;
       display: flex;
-      justify-content: flex-start;
       align-items: center;
-      h2 {
-        margin: 0;
+      img {
+        height: 32px;
+      }
+      .bars-icon {
+        display: none;
+        font-size: 32px;
+        cursor: pointer;
+        margin-right: 18px;
       }
     }
     .search-input {
@@ -86,27 +116,25 @@
   .header-bottom {
     border-top: 1px solid #e7e7e7;
     height: 58px;
-    .container {
-      justify-content: flex-start;
-      .header-bottom-left {
-        display: flex;
-      }
-      a {
-        line-height: 58px;
-        font-size: 13px;
-        padding: 0 20px;
-        height: 100%;
-        box-sizing: border-box;
-        font-weight: bold;
 
-        text-transform: uppercase;
-        &:hover {
-          border-top: 1px solid;
-        }
+    .header-bottom-left {
+      display: flex;
+    }
+    a {
+      line-height: 58px;
+      font-size: 13px;
+      padding: 0 20px;
+      height: 100%;
+      box-sizing: border-box;
+      font-weight: bold;
+
+      text-transform: uppercase;
+      &:hover {
+        border-top: 1px solid;
       }
-      a:first-child {
-        padding: 0 20px 0 0 !important;
-      }
+    }
+    a:first-child {
+      padding: 0 20px 0 0 !important;
     }
   }
 }
