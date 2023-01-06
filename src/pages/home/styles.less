@@ -8,9 +8,32 @@
       width: 100%;
     }
   }
+
+  @media screen and (max-width: 600px) {
+    .banner-4{
+      flex-direction: column;
+      padding:12px;
+      gap:12px;
+    }
+  }
+
+
   .home-slick {
     max-width: 100wh;
+    .slider-content-box {
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-color: rgba(0, 0, 0, 0);
+      min-height: 499px;
+      &.slider1 {
+        background-image: url(https://www.portotheme.com/magento2/porto/pub/media/wysiwyg/smartwave/porto/homepage/04/shop4_home_slider1.jpg);
+      }
+      &.slider2 {
+        background-image: url(https://www.portotheme.com/magento2/porto/pub/media/wysiwyg/smartwave/porto/homepage/04/shop4_home_slider2.jpg);
+      }
+    }
   }
+
   .info-boxs {
     .info-boxs-slider {
       width: 100%;
@@ -45,7 +68,7 @@
     background-color: #f4f4f4;
     background-size: cover;
     background-repeat: no-repeat;
-  
+
     background-position: center center;
     background-color: rgba(0, 0, 0, 0);
     min-height: 175px;
@@ -54,7 +77,7 @@
   .banner-2 {
     padding-top: 1.6rem;
     padding-bottom: 1.6rem;
-  
+
     padding-left: 1.6rem;
     background-color: #f4f4f4;
     background-size: cover;
@@ -68,7 +91,7 @@
   .banner-3 {
     padding-top: 1.6rem;
     padding-bottom: 1.6rem;
-  
+
     padding-left: 1.6rem;
     background-color: #f4f4f4;
     background-size: cover;
@@ -110,7 +133,10 @@
     flex-direction: row;
 
     .widget-container {
-      padding: 0 10px;
+      padding: 12 10px;
+      .product-widget-wrapper {
+        margin-bottom: 18px;
+      }
       img {
         width: 84px;
         height: 84px;
@@ -130,7 +156,7 @@
     margin-right: 0;
     margin-left: 0;
     background-image: url(https://www.portotheme.com/magento2/porto/pub/media/wysiwyg/smartwave/porto/homepage/04/shop4_home_banner.jpg);
-    height: 97px;
+    min-height: 97px;
     display: flex;
     align-items: center;
 

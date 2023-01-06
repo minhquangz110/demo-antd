@@ -19,13 +19,19 @@ const Footertable = (props: any) => {
     total += p.subtotal;
   });
   return (
-    <div className="footer-table">
-      <p className="lb-total">Total: </p>
-      <span className="total">{formatDollar(total)}</span>
-      <Link to={"/main/checkout"}>
-        <Button className="btn-buy-now">Buy Now</Button>
-      </Link>
-    </div>
+    <Row gutter={[24, 24]} className="footer-table">
+      <Col xs={24} sm={16}>
+        <Row justify="end" align="middle">
+          <span className="lb-total">Total: </span>
+          <span className="total">{formatDollar(total)}</span>
+        </Row>
+      </Col>
+      <Col xs={24} sm={8}>
+        <Link to={"/main/checkout"}>
+          <Button className="btn-buy-now">Buy Now</Button>
+        </Link>
+      </Col>
+    </Row>
   );
 };
 const ShoppingCart = () => {
@@ -55,19 +61,19 @@ const ShoppingCart = () => {
       },
 
       {
-        title: "Product",
+        title: <span>Product</span>,
         key: "id",
         dataIndex: "name",
-        render: (text) => <p>{text}</p>,
+        render: (text) => <span>{text}</span>,
       },
       {
-        title: "Price ",
+        title: <span>Price</span>,
         key: "id",
         dataIndex: "price",
-        render: (text) => <p>{formatDollar(text)}</p>,
+        render: (text) => <span>{formatDollar(text)}</span>,
       },
       {
-        title: "Quantity",
+        title: <span>Quantity</span>,
         key: "id",
         dataIndex: "quantity",
         render: (_, record) => (
@@ -94,11 +100,11 @@ const ShoppingCart = () => {
         ),
       },
       {
-        title: "Subtotal",
+        title: <span>Subtotal</span>,
         key: "id",
         dataIndex: "subtotal",
         render: (text) => {
-          return <p className="item_subtotal">{formatDollar(text)}</p>;
+          return <span className="item_subtotal">{formatDollar(text)}</span>;
         },
       },
     ];
@@ -107,23 +113,70 @@ const ShoppingCart = () => {
   return (
     <div className="shoppingcart-wrapper">
       <div className="container">
-        <CheckoutProgressBar progress={1} />
-        <Row>
-          <Col span={24}>
+        <CheckoutProgressBar progress={0} />
+        <Row gutter={[40, 40]}>
+          <Col sm={24} xs={0}>
             <div className="cart-table-container">
               <Table
                 scroll={{ y: 380 }}
                 columns={columns}
                 rowKey={"_id"}
-                footer={() => {
-                  return <Footertable cart={cart} />;
-                }}
                 dataSource={cart}
                 pagination={false}
               />
             </div>
           </Col>
-          {/* <Col span={8}></Col> */}
+
+          {cart.map((product) => {
+            return (
+              <Col xs={24} sm={0}>
+                <Row gutter={40}>
+                  <Col span={8}>
+                    <CartItemImage id={product._id} img={product.imgs[0]} />
+                  </Col>
+                  <Col span={16}>
+                    <Row className="product-details">
+                      <h4>{product.name}</h4>
+                      <span>
+                        <del className="old-price">
+                          {formatDollar(product.oldPrice)}
+                        </del>
+                        <span className="price">
+                          {formatDollar(product.price)}
+                        </span>
+                      </span>
+                      <div className="quantity-container">
+                        <Button
+                          className="quantity-btn"
+                          onClick={() => {
+                            updateQuantityHandle(product._id, -1);
+                          }}
+                        >
+                          -
+                        </Button>
+                        <Input
+                          value={product.quantity}
+                          className="quantity-input"
+                        />
+                        <Button
+                          className="quantity-btn"
+                          value={1}
+                          onClick={() => {
+                            updateQuantityHandle(product._id, 1);
+                          }}
+                        >
+                          +
+                        </Button>
+                      </div>
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+            );
+          })}
+          <Col span={24}>
+            <Footertable cart={cart} />
+          </Col>
         </Row>
       </div>
     </div>

@@ -41,15 +41,12 @@ export const CategoriesSlider = (props: {
   return (
     <Slider {...settings}>
       {categories.map((p: ICategory, index) => (
-        <div key={index} className="slider-item-padding">
-          <div className="category-item">
-            <img
-              src="https://www.portotheme.com/magento2/porto/pub/media/wysiwyg/smartwave/porto/homepage/04/shop4_cat1.jpg"
-              alt=""
-            />
-            <div className="thumb"></div>
+        <div key={index} className=" category-slider-wrapper">
+          <div className="category-item blur-hover ">
+            <img src={p.imgs[0]} alt="" />
+              <div className=""></div>
             <div className="category-title">
-              <h2>Name</h2>
+              <h2>{p.name}</h2>
               <span>3 Products </span>
             </div>
           </div>

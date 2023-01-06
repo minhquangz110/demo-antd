@@ -30,9 +30,9 @@ const AccountDetails = () => {
     //profile = {};
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     form.setFieldsValue(profile);
-  });
+  }, [form, profile]);
   return (
     <Form layout="vertical" form={form} onFinish={onFinish}>
       <Row gutter={30}>

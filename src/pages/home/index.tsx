@@ -16,6 +16,7 @@ import { IProduct } from "../../models/product";
 import { productService } from "../../services/products";
 import { Link } from "react-router-dom";
 import { CategoriesSlider } from "../../components/categoriesSlider";
+import { url } from "inspector";
 export const Home = () => {
   const settings = {
     dots: false,
@@ -55,24 +56,39 @@ export const Home = () => {
   }, [fetch]);
   const categories = [
     {
-      _id: 1,
-      name: "Fashion",
+      _id: "1",
+      name: "Accessories",
       imgs: [
         "https://www.portotheme.com/magento2/porto/pub/media/wysiwyg/smartwave/porto/homepage/04/shop4_cat1.jpg",
       ],
     },
     {
-      _id: 2,
-      name: "Fashion",
+      _id: "2",
+      name: "Caps",
       imgs: [
-        "https://www.portotheme.com/magento2/porto/pub/media/wysiwyg/smartwave/porto/homepage/04/shop4_cat1.jpg",
+        "https://www.portotheme.com/magento2/porto/pub/media/wysiwyg/smartwave/porto/homepage/04/shop4_cat2.jpg",
       ],
     },
     {
-      _id: 3,
+      _id: "3",
+      name: "Clothing",
+      imgs: [
+        "https://www.portotheme.com/magento2/porto/pub/media/wysiwyg/smartwave/porto/homepage/04/shop4_cat3.jpg",
+      ],
+    },
+    {
+      _id: "4",
+      name: "Clothing",
+      imgs: [
+        "https://www.portotheme.com/magento2/porto/pub/media/wysiwyg/smartwave/porto/homepage/04/shop4_cat4.jpg",
+      ],
+    },
+
+    {
+      _id: "5",
       name: "Fashion",
       imgs: [
-        "https://www.portotheme.com/magento2/porto/pub/media/wysiwyg/smartwave/porto/homepage/04/shop4_cat1.jpg",
+        "https://www.portotheme.com/magento2/porto/pub/media/wysiwyg/smartwave/porto/homepage/04/shop4_cat5.jpg",
       ],
     },
   ];
@@ -80,12 +96,10 @@ export const Home = () => {
     <div className="home-wrapper">
       <div className="home-slick">
         <Slider {...settings}>
+          <div className="slider-content-box slider1" style={{}}></div>
+          <div className="slider-content-box slider2" style={{}}></div>
           <img
-            src="https://portotheme.com/html/porto_ecommerce/assets/images/demoes/demo4/slider/slide-2.jpg"
-            alt=""
-          />
-          <img
-            src="https://portotheme.com/html/porto_ecommerce/assets/images/demoes/demo4/slider/slide-1.jpg"
+            src=""
             alt=""
           />
         </Slider>
@@ -172,7 +186,7 @@ export const Home = () => {
 
         <div className="section-product">
           <h2 className="title-h2">BROWSE OUR CATEGORIES </h2>
-          <CategoriesSlider categories={data} slidesToShow={5} />
+          <CategoriesSlider categories={categories} slidesToShow={5} />
         </div>
 
         <Row gutter={[0, 0]} className="section-product service-container">

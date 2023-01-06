@@ -14,8 +14,19 @@
     .header-top {
       display: none !important;
     }
+
     .header-middle {
-      padding: 18px 0 !important;
+      .header-right {
+        margin-left: auto !important;
+      }
+      .header-middle-wrapper {
+        padding: 12px 0 !important;
+        top: 0;
+        z-index: 20;
+        background-color: #fff;
+        position: fixed;
+        border-bottom: 1px #e6ebee solid;
+      }
       .header-logo {
         padding-right: 32px;
         display: flex;
@@ -23,20 +34,65 @@
         img {
           height: 32px;
         }
-        .bars-icon {
+        .menu-icon {
           display: block !important;
-        
         }
       }
     }
     .header-bottom {
       display: none !important;
     }
-    .search-input {
+
+    .search-container {
       display: none !important;
     }
-  }
 
+    .menu {
+      display: block !important       ;
+    }
+  }
+  .menu {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: #fff;
+    z-index: 3;
+    top: 74px;
+    padding: 8px 4px;
+    display: none;
+    background-color: #222529;
+
+    .menu-list {
+      margin-top: 18px;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      font-weight: 400;
+      text-transform: uppercase;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #696969;
+      a {
+        color: #fff;
+        padding: 12px 0;
+        &:hover {
+          color: #ff9601;
+        }
+      }
+    }
+    .authors {
+      display: flex;
+      flex-direction: column;
+      margin-top: 12px;
+      font-size: 14px;
+      a {
+        color: #fff;
+        padding: 12px 0;
+        &:hover {
+          color: #ff9601;
+        }
+      }
+    }
+  }
   .header-top {
     height: 42px;
     display: flex;
@@ -55,28 +111,41 @@
       opacity: 0.8;
     }
   }
+
+  .header-fixed {
+    display: flex;
+  }
+
   .header-middle {
     padding: 32px 0;
     display: flex;
     align-items: center;
     background-color: white;
-    justify-content: space-between;
+    width: 100%;
+    .header-middle-wrapper {
+      width: 100%;
+    }
+    .container {
+      display: flex;
+    }
     .header-logo {
       padding-right: 32px;
       display: flex;
       align-items: center;
       img {
-        height: 32px;
+        height: 42px;
+        margin-top: 7px;
       }
-      .bars-icon {
+      .menu-icon {
         display: none;
         font-size: 32px;
         cursor: pointer;
         margin-right: 18px;
       }
     }
-    .search-input {
+    .search-container {
       flex: 1;
+      margin: auto;
     }
     .ant-input {
       border-radius: @borderRadiusLeft;
@@ -99,16 +168,10 @@
       }
     }
     .header-right {
-      width: 20%;
+      margin-left: 24px;
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
       a {
-        margin-left: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        width: 40px;
-        height: 40px;
         color: #222529;
       }
     }
@@ -117,24 +180,42 @@
     border-top: 1px solid #e7e7e7;
     height: 58px;
 
-    .header-bottom-left {
+    .container {
       display: flex;
     }
-    a {
-      line-height: 58px;
-      font-size: 13px;
-      padding: 0 20px;
-      height: 100%;
-      box-sizing: border-box;
-      font-weight: bold;
+    .header-bottom-wrapper {
+      top: 0;
+      width: 100%;
+      z-index: 4;
+      background-color: #fff;
+    }
+    .header-bottom-left {
+      display: flex;
+      flex: 1;
+      a {
+        line-height: 58px;
+        font-size: 13px;
+        padding: 0 20px;
+        height: 100%;
+        box-sizing: border-box;
+        font-weight: bold;
 
-      text-transform: uppercase;
-      &:hover {
-        border-top: 1px solid;
+        text-transform: uppercase;
+        &:hover {
+          border-top: 1px solid;
+        }
+      }
+      a:first-child {
+        padding: 0 20px 0 0 !important;
       }
     }
-    a:first-child {
-      padding: 0 20px 0 0 !important;
+
+    .header-bottom-right {
+      display: none;
+
+      a {
+        color: #222529;
+      }
     }
   }
 }

@@ -63,7 +63,8 @@ export class productService {
   static async getProducts(page?: {
     page: number;
     limit: number;
-    value?: string;
+    searchValue?: string;
+    sortPrice?:string;
   }): Promise<DataList<IProduct[]>> {
     const result = await request.get("products", page);
     return result;
@@ -103,7 +104,7 @@ export class productService {
 
     if (pathsRes.success === true) {
       product.imgs.push(...pathsRes.data);
-  
+
       return await request.put("products", product);
     }
     return pathsRes;

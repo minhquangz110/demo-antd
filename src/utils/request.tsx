@@ -4,8 +4,8 @@ import { IDataApi } from "../types/dataApi";
 
 const request = axios.create({
  // baseURL: "https://demo-be.onrender.com/api",
-  //baseURL: "http://localhost:3001/api",
- baseURL: "http://ec2-13-212-150-216.ap-southeast-1.compute.amazonaws.com/api"
+  baseURL: "http://localhost:3001/api",
+ //baseURL: "http://ec2-13-212-150-216.ap-southeast-1.compute.amazonaws.com/api"
 });
 request.interceptors.request.use(
   async (config) => {

@@ -57,7 +57,6 @@ export const Products = () => {
       const subtotal = data.price * quantity;
       dispatch(addToCart({ ...data, quantity: quantity, subtotal: subtotal }));
       message.success("success");
-  
     }
   };
   const productGallerySettings = {
@@ -80,8 +79,8 @@ export const Products = () => {
   return (
     <div className="products-wrapper">
       <div className="container">
-        <Row gutter={40}>
-          <Col span={10}>
+        <Row gutter={[40, 50]}>
+          <Col md={10} xs={24}>
             <div className="product-gallery">
               <Slider
                 className="product-gallery-slider"
@@ -109,7 +108,7 @@ export const Products = () => {
               </Slider>
             </div>
           </Col>
-          <Col span={14}>
+          <Col md={10} xs={24}>
             <div className="product-details">
               <h1 className="product-title">{data.name}</h1>
               <Rate disabled allowHalf value={4} className="rating" />

@@ -20,6 +20,7 @@ import { OrdersData } from "../../types/ordersData";
 import { formatDollar } from "../../utils/formatCurrency";
 
 import "./styles.less";
+import { useAppSelector } from "../../app/hooks";
 export const OrderList = () => {
   const [data, setData] = useState<OrdersData[]>([]);
   const [page, setPage] = useState({
@@ -27,14 +28,13 @@ export const OrderList = () => {
     limit: 10,
     searchValue: "",
   });
-  const context = useContext(ProfileContext);
+  const userProfile = useAppSelector((state) => state.auth.userProfile);
   const [total, setTotal] = useState(0);
 
   const fetch = useCallback(async () => {
-    console.log(context);
-    if (context && context.value && context.value.username) {
+    if (userProfile) {
       const result = await orderService.getOrdersByUserName(
-        context.value.username,
+        userProfile.username,
         page
       );
       console.log(result);
@@ -43,7 +43,7 @@ export const OrderList = () => {
         setTotal(result.data.count);
       }
     }
-  }, [context, page]);
+  }, [userProfile, page]);
   const pagination = (pageValue: number, limit: number) => {
     setPage({ ...page, page: pageValue, limit: limit });
   };

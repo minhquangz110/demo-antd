@@ -55,12 +55,12 @@ export const SignIn = () => {
           <Input.Password size="large" placeholder="Password" />
         </Form.Item>
         <Form.Item name="remember" valuePropName="checked">
-          <Row>
-            <Col span={12}>
+          <Row gutter={[12,12]}>
+            <Col xs={24} sm={12}>
               <Checkbox>Remember me</Checkbox>
             </Col>
-            <Col span={12}>
-              <div className="text-center" onClick={() => {}}>
+            <Col xs={24} sm={12}>
+              <div className="" onClick={() => {}}>
                 Don't have an account?{" "}
                 <Link to="/auth/signup">Sign up now.</Link>
               </div>

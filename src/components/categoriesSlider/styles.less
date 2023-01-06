@@ -1,22 +1,12 @@
-.slider-item-padding {
+.category-slider-wrapper {
+  .blur-hover:hover::before {
+    border-radius: 100%;
+  }
   .category-item {
     position: relative;
     cursor: pointer;
     img {
       border-radius: 100%;
-    }
-    .thumb {
-      position: absolute;
-
-      height: 100%;
-      width: 100%;
-      top: 0;
-      z-index: 1;
-      border-radius: 100%;
-      transition: all 0.2s;
-      &:hover {
-        background: rgba(27, 27, 23, 0.15);
-      }
     }
 
     .category-title {

@@ -49,7 +49,6 @@ export const ProductContent = () => {
     if (result.success) {
       setData(result.data.data);
       setTotal(result.data.count);
-      console.log('he')
     }
   }, [page]);
 

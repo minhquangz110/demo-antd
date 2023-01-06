@@ -45,6 +45,21 @@ img {
   line-height: 1.35;
   letter-spacing: 0.005em;
 }
+
+
+.price{ 
+  color:#444;
+}
+
+@media only screen and (max-width: 500px) {
+  .price{ 
+    font-size: 12px !important;
+  }
+  .old-price {
+    font-size: 8px !important;
+  }
+}
+
 .product-rate {
   font-size: 13px;
   line-height: 1;
@@ -70,6 +85,18 @@ img {
   @keyframes @name {
     @arguments();
   }
+}
+
+.blur-hover:hover::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+  // border-radius: 100%;
+  transition: all 0.2s;
+  background: rgba(27, 27, 23, 0.2);
 }
 
 .animation(@arguments) {

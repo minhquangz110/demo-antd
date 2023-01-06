@@ -1,20 +1,19 @@
-import { Badge, Button, Col, Divider, Drawer, Row } from "antd";
+import { Badge, Button, Col, Drawer, Row } from "antd";
 import "./styles.less";
-import { Input, Space } from "antd";
+import { Space } from "antd";
 import {
-  AppstoreOutlined,
   BarsOutlined,
+  CloseOutlined,
   HeartOutlined,
   ShoppingCartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { memo, useContext, useEffect, useState } from "react";
+import { memo, useLayoutEffect, useRef, useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { CartItemImage } from "../cartItemImage";
 import { formatDollar } from "../../utils/formatCurrency";
-
-const { Search } = Input;
+import { SearchProduct } from "../searchProduct";
 
 const DrawerContent = memo((props: any) => {
   const navigate = useNavigate();
@@ -89,7 +88,8 @@ const DrawerContent = memo((props: any) => {
 });
 
 export const Header2 = () => {
-  const onSearch = () => {};
+  const divFixed = useRef<HTMLDivElement>(null);
+  const divRight = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const profile = useAppSelector((state) => state.auth.userProfile);
   const cart = useAppSelector((state) => state.cart);
@@ -100,6 +100,37 @@ export const Header2 = () => {
   const onClose = () => {
     setOpen(false);
   };
+
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+
+  const toggleOpenMenu = () => {
+    setIsOpenMenu(!isOpenMenu);
+  };
+
+  useLayoutEffect(() => {
+    if (divFixed.current !== null) {
+      const divAnimate = divFixed.current.getBoundingClientRect().top;
+
+      const onScroll = () => {
+        if (divFixed.current && divRight.current !== null)
+          if (divAnimate < window.scrollY) {
+         
+            divRight.current.style.display = "flex";
+            divFixed.current.style.position = "fixed";
+            divFixed.current.style.top = "0";
+            divFixed.current.style.left = "0";
+            divFixed.current.style.borderBottom = "1px solid #d9d9d98f";
+          } else {
+            divFixed.current.style.position = "relative";
+            divRight.current.style.display = "none";
+            divFixed.current.style.borderBottom = "none";
+          }
+      };
+      window.addEventListener("scroll", onScroll);
+      return () => window.removeEventListener("scroll", onScroll);
+    }
+  }, []);
+
   return (
     <div className="header-wrapper">
       <Drawer
@@ -111,6 +142,40 @@ export const Header2 = () => {
       >
         <DrawerContent handleClose={onClose} />
       </Drawer>
+
+      {isOpenMenu && (
+        <div className="menu">
+          <SearchProduct />
+          <div className="menu-list ">
+            <Link onClick={toggleOpenMenu} to="">
+              Home
+            </Link>
+            <Link onClick={toggleOpenMenu} to="shop">
+              Shop
+            </Link>
+            <Link onClick={toggleOpenMenu} to="">
+              Contact Us
+            </Link>
+            <Link onClick={toggleOpenMenu} to="shoppingcart">
+              Cart
+            </Link>
+            <Link onClick={toggleOpenMenu} to="checkout">
+              Check Out
+            </Link>
+          </div>
+          <div className="authors">
+            {profile && profile.name ? (
+              <></>
+            ) : (
+              <>
+                <Link to="/auth/login">Sign in </Link>
+                <Link to="/auth/signup">Sign out</Link>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
       <div className="container">
         <div className=" header-top flex-center">
           <Link to="">About Us</Link>
@@ -126,47 +191,76 @@ export const Header2 = () => {
             <Link to="/auth/login">Login</Link>
           )}
         </div>
-        <div className="header-middle">
-          <div className="header-logo">
-        
-            <BarsOutlined className="bars-icon" />
-            <img src="/images/logo.png" alt="" />
-          </div>
-          <Search
-            size="middle"
-            className="search-input"
-            bordered
-            placeholder="Search..."
-            onSearch={onSearch}
-          />
-          <div className="header-right">
-            <Space size={4}>
-              <Link to="myaccount">
-                <UserOutlined style={{ fontSize: 32 }} />
-              </Link>
-              <Link to="">
-                <HeartOutlined style={{ fontSize: 32 }} />
-              </Link>
-              <Link to="#">
-                <Badge count={cart.length}>
-                  <ShoppingCartOutlined
-                    onClick={showDrawer}
-                    style={{ fontSize: 32 }}
-                  />
-                </Badge>
-              </Link>
-            </Space>
+      </div>
+
+      <div className="header-middle">
+        <div className="header-middle-wrapper">
+          <div className="container">
+            <div className="header-logo">
+              <div className="menu-icon" onClick={toggleOpenMenu}>
+                {isOpenMenu ? (
+                  <CloseOutlined className="bars-icon" />
+                ) : (
+                  <BarsOutlined className="bars-icon" />
+                )}
+              </div>
+
+              <img src="/images/logo.png" alt="" />
+            </div>
+            <div className="search-container">
+              <SearchProduct />
+            </div>
+            <div className="header-right">
+              <Space size={12}>
+                <Link to="myaccount">
+                  <UserOutlined style={{ fontSize: 32 }} />
+                </Link>
+                <Link to="">
+                  <HeartOutlined style={{ fontSize: 32 }} />
+                </Link>
+                <Link to="#">
+                  <Badge count={cart.length}>
+                    <ShoppingCartOutlined
+                      onClick={showDrawer}
+                      style={{ fontSize: 32 }}
+                    />
+                  </Badge>
+                </Link>
+              </Space>
+            </div>
           </div>
         </div>
-        <div className="header-bottom">
-          <div className="header-bottom-left h-full">
-            <Link to="">Home</Link>
-            <Link to="shop">Shop</Link>
-            <Link to="">Contact Us</Link>
-            <Link to="shoppingcart">Cart</Link>
-            <Link to="checkout">Check Out</Link>
+      </div>
+
+      <div className="header-bottom">
+        <div className="header-bottom-wrapper" ref={divFixed}>
+          <div className="container">
+            <div className="header-bottom-left h-full">
+              <Link to="">Home</Link>
+              <Link to="shop">Shop</Link>
+              <Link to="">Contact Us</Link>
+              <Link to="shoppingcart">Cart</Link>
+              <Link to="checkout">Check Out</Link>
+            </div>
+            <div className="header-bottom-right" ref={divRight}>
+              <Space size={12}>
+                <Link to="myaccount">
+                  <UserOutlined style={{ fontSize: 32 }} />
+                </Link>
+                <Link to="">
+                  <HeartOutlined style={{ fontSize: 32 }} />
+                </Link>
+                <Link to="#">
+                  <Badge count={cart.length}>
+                    <ShoppingCartOutlined
+                      onClick={showDrawer}
+                      style={{ fontSize: 32 }}
+                    />
+                  </Badge>
+                </Link>
+              </Space>
+            </div>
           </div>
-          <div className="header-bottom-right"></div>
         </div>
       </div>
     </div>
