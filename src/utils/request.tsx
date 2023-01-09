@@ -9,11 +9,9 @@ const request = axios.create({
 });
 request.interceptors.request.use(
   async (config) => {
-    const keys = getToken();
+    const token = getToken();
     config.headers = {
-      Authorization: `Bearer ${keys}`,
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Bearer ${token}`,
     };
     return config;
   },
