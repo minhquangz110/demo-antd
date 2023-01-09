@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN yarn install && yarn build 
+RUN yarn install  && yarn build 
 
 
 FROM node:18-alpine AS runner
@@ -21,17 +21,10 @@ COPY --from=build /app/package.json ./package.json
 
 CMD [ "yarn", "start" ]
 
-# FROM node:18-alpine
+FROM nginx:1.19.10-alpine
+COPY --from=build /app/build /usr/share/nginx/html
 
-# WORKDIR /app
-
-# COPY package.json ./
-
-# COPY yarn.lock ./
-
-# RUN yarn install --frozen-lockfile
-
-# COPY . .
-
-
-# CMD ["npm", "start"]
+COPY --from=build /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+EXPOSE 443
+CMD ["nginx", "-g", "daemon off;"]

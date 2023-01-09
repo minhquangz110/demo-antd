@@ -14,7 +14,7 @@ function useQuery() {
 }
 
 export const Shop = () => {
-  const params = useParams();
+  
   const query = useQuery();
 
   const [total, setTotal] = useState(0);

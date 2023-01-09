@@ -5,13 +5,14 @@ import { productService } from "../../services/products";
 import { Col, Row } from "antd";
 import { ProductWidget } from "../productWidget";
 import { IProduct } from "../../models/product";
-import { useNavigate } from "react-router-dom";
+import { useHref, useNavigate, useSearchParams } from "react-router-dom";
 
 export const SearchProduct = () => {
   const [value, setValue] = useState("");
   const [data, setData] = useState<IProduct[]>([]);
   const [isFocus, setIsFocus] = useState(false);
   const navigate = useNavigate();
+
   const onSearch = () => {
     navigate(`/main/shop?keyword=${value}`);
   };

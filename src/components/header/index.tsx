@@ -9,7 +9,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { memo, useLayoutEffect, useRef, useState } from "react";
+import { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { CartItemImage } from "../cartItemImage";
 import { formatDollar } from "../../utils/formatCurrency";
@@ -93,6 +93,13 @@ export const Header2 = () => {
   const [open, setOpen] = useState(false);
   const profile = useAppSelector((state) => state.auth.userProfile);
   const cart = useAppSelector((state) => state.cart);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsOpenMenu(false);
+  }, [navigate]);
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -100,8 +107,6 @@ export const Header2 = () => {
   const onClose = () => {
     setOpen(false);
   };
-
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const toggleOpenMenu = () => {
     setIsOpenMenu(!isOpenMenu);
@@ -114,7 +119,6 @@ export const Header2 = () => {
       const onScroll = () => {
         if (divFixed.current && divRight.current !== null)
           if (divAnimate < window.scrollY) {
-         
             divRight.current.style.display = "flex";
             divFixed.current.style.position = "fixed";
             divFixed.current.style.top = "0";
