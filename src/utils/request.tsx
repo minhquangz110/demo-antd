@@ -12,6 +12,9 @@ request.interceptors.request.use(
     const token = getToken();
     config.headers = {
       Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+      referrerPolicy: "unsafe_url",
     };
     return config;
   },
@@ -19,7 +22,7 @@ request.interceptors.request.use(
     Promise.reject(error);
   }
 );
-export const get = async (path: string, params: any) => {
+export const get = async (path: string, params: any, ) => {
   const res = await request.get(path, { params: params });
   return res.data;
 };
