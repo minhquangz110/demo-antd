@@ -5,7 +5,7 @@ import { IDataApi } from "../types/dataApi";
 const request = axios.create({
   // baseURL: "https://demo-be.onrender.com/api",
   //baseURL: "http://175.41.154.200",
-  baseURL: "http://ec2-175-41-154-200.ap-southeast-1.compute.amazonaws.com"
+  baseURL: "http://13.215.252.255/api"
 });
 request.interceptors.request.use(
   async (config) => {

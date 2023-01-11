@@ -93,7 +93,7 @@ export const OrderList = () => {
       {
         title: <p className=" header-table">Date Buy</p>,
         key: "_id",
-        dataIndex: "dateBuy",
+        dataIndex: "createAt",
 
         render: (text) => <p>{new Date(text).toDateString()}</p>,
       },

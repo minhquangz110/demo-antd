@@ -6,8 +6,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 function App() {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
-  const profile =  useAppSelector((state) => state.auth.userProfile);
+  const navigate = useNavigate();
+  const profile = useAppSelector((state) => state.auth.userProfile);
   const isLoading = useAppSelector((state) => state.auth.loading);
   const _authenticate = useCallback(async () => {
     await dispatch(authenticate());
@@ -16,14 +16,13 @@ function App() {
   useEffect(() => {
     _authenticate();
   }, [_authenticate]);
-  useEffect(()=>{
-    if(isLoading === false){
-      if(!profile){
-        navigate('/main')
+  useEffect(() => {
+    if (isLoading === false) {
+      if (!profile) {
+        navigate("/main");
       }
-     
     }
-  },[isLoading, profile])
+  }, [isLoading, profile]);
 
   return isLoading ? <>loading...</> : <Outlet />;
 }

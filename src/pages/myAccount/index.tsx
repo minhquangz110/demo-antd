@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 import { OrderList } from "../../components/orderList";
-import { logout, updateProfile } from "../../features/auth/authSlice";
-import { removeToken } from "../../persist/localstorage";
+import { logout } from "../../features/auth/authSlice";
 import { accountService } from "../../services/accounts";
 import "./styles.less";
 const AccountDetails = () => {

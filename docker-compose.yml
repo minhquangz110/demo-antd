@@ -3,11 +3,6 @@ version: '3.8'
 services:
   api:
     container_name: demo-ant
-   
     build: .
     ports:
-      - 80:3000
-networks:
-  default:
-    external:
-      name: demo
+      - 3002:80
